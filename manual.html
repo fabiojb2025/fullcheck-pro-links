@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual do Usuário | FullCheck Pro</title>
+    <meta name="description"
+        content="Manual completo do FullCheck Pro - Sistema de conferência de envios FULL do Mercado Livre">
+    <meta name="theme-color" content="#6366F1">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --secondary: #8B5CF6;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --dark: #0F172A;
+            --darker: #020617;
+            --slate-100: #F1F5F9;
+            --slate-200: #E2E8F0;
+            --slate-300: #CBD5E1;
+            --slate-400: #94A3B8;
+            --slate-500: #64748B;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1E293B;
+            --slate-900: #0F172A;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--slate-100);
+            color: var(--slate-800);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #1E1B4B 100%);
+            color: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        .header-nav {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+        }
+
+        .header-nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main layout */
+        .layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid var(--slate-200);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--slate-400);
+            padding: 0 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 0.65rem 1.5rem;
+            color: var(--slate-600);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--slate-100);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(99, 102, 241, 0.08);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main content */
+        .main {
+            flex: 1;
+            padding: 3rem;
+            max-width: 900px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--slate-800);
+            margin: 2rem 0 1rem;
+        }
+
+        h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--slate-700);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--slate-600);
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--slate-600);
+        }
+
+        li strong {
+            color: var(--slate-800);
+        }
+
+        /* Cards/Callouts */
+        .callout {
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .callout-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .callout-content {
+            flex: 1;
+        }
+
+        .callout-content strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: inherit;
+        }
+
+        .callout-content p {
+            margin: 0;
+            color: inherit;
+            opacity: 0.9;
+        }
+
+        .callout.info {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--primary-dark);
+        }
+
+        .callout.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #047857;
+        }
+
+        .callout.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            color: #B45309;
+        }
+
+        .callout.danger {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #B91C1C;
+        }
+
+        /* Code */
+        code {
+            background: var(--slate-200);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85em;
+            color: var(--slate-800);
+        }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .steps li {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 1.5rem;
+            border-left: 2px solid var(--slate-200);
+            margin-left: 1rem;
+        }
+
+        .steps li:last-child {
+            border-left: 2px solid transparent;
+            padding-bottom: 0;
+        }
+
+        .steps li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: -13px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Feature grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--slate-200);
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .feature-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card h4 {
+            margin: 0 0 0.5rem;
+            color: var(--slate-900);
+        }
+
+        .feature-card p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Keyboard shortcuts */
+        kbd {
+            background: var(--slate-800);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.8em;
+            margin: 0 0.1rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        th,
+        td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        th {
+            background: var(--slate-100);
+            font-weight: 700;
+            color: var(--slate-700);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            color: var(--slate-600);
+        }
+
+        /* Back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--slate-900);
+            color: var(--slate-400);
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .footer p {
+            color: inherit;
+            margin: 0;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .header-nav {
+                gap: 0.5rem;
+            }
+
+            .header-nav a {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <img src="icon.png" alt="FullCheck Pro" class="logo">
+            <h1>Manual do Usuário</h1>
+            <p>Guia completo para usar o FullCheck Pro</p>
+            <nav class="header-nav">
+                <a href="index.html">← Voltar</a>
+                <a href="#introducao">Introdução</a>
+                <a href="#configuracao">Configuração</a>
+                <a href="#conferencia">Conferência</a>
+                <a href="#vinculos">Vínculos</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <p class="sidebar-title">Primeiros Passos</p>
+            <ul class="sidebar-nav">
+                <li><a href="#introducao">Introdução</a></li>
+                <li><a href="#download">Download e Instalação</a></li>
+                <li><a href="#configuracao">Configuração Inicial</a></li>
+            </ul>
+
+            <p class="sidebar-title" style="margin-top: 1.5rem;">Funcionalidades</p>
+            <ul class="sidebar-nav">
+                <li><a href="#importar-lotes">Importar Lotes de Envio</a></li>
+                <li><a href="#conferencia">Conferência por Bipagem</a></li>
+                <li><a href="#impressao">Impressão de Etiquetas</a></li>
+                <li><a href="#vinculos">Vínculos EAN → SKU</a></li>
+                <li><a href="#kits">Kits de Produtos</a></li>
+                <li><a href="#vinculos-especiais">Vínculos Especiais</a></li>
+                <li><a href="#volumes">Etiquetas de Volume</a></li>
+            </ul>
+
+            <p class="sidebar-title" style="margin-top: 1.5rem;">Avançado</p>
+            <ul class="sidebar-nav">
+                <li><a href="#importar-exportar">Importar/Exportar Dados</a></li>
+                <li><a href="#dicas">Dicas e Atalhos</a></li>
+                <li><a href="#problemas">Solução de Problemas</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <a href="index.html" class="back-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Voltar para Links
+            </a>
+
+            <!-- Introdução -->
+            <section id="introducao">
+                <h2>Introdução</h2>
+                <p>O <strong>FullCheck Pro</strong> é um sistema profissional de conferência de envios desenvolvido
+                    especialmente para vendedores FULL do Mercado Livre que desejam agilizar o processo de separação e
+                    envio de pedidos.</p>
+
+                <div class="callout success">
+                    <div class="callout-icon">🎉</div>
+                    <div class="callout-content">
+                        <strong>30 Dias Grátis!</strong>
+                        <p>Experimente o FullCheck Pro gratuitamente por 30 dias. Baixe agora na Microsoft Store!</p>
+                    </div>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="icon">📋</div>
+                        <h4>Importação de Lotes</h4>
+                        <p>Importe lotes ZPL diretamente do Mercado Livre</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔍</div>
+                        <h4>Conferência Inteligente</h4>
+                        <p>Bipe o produto e a etiqueta é impressa automaticamente</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🖨️</div>
+                        <h4>Impressão Silenciosa</h4>
+                        <p>Imprime direto na térmica sem abrir janelas</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔗</div>
+                        <h4>Vínculos Inteligentes</h4>
+                        <p>Associe EAN ao SKU para bipagem automática</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📦</div>
+                        <h4>Suporte a Kits</h4>
+                        <p>Gerencie produtos compostos por múltiplos itens</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔒</div>
+                        <h4>Bloqueio de SKU</h4>
+                        <p>Evita mistura de produtos durante separação</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Download -->
+            <section id="download">
+                <h2>Download e Instalação</h2>
+                <p>O FullCheck Pro está disponível gratuitamente na Microsoft Store.</p>
+
+                <ol class="steps">
+                    <li>
+                        <strong>Acesse a Microsoft Store</strong><br>
+                        Clique no botão abaixo ou pesquise por "FullCheck Pro" na loja:
+                        <br><br>
+                        <a href="https://apps.microsoft.com/detail/9ND78SMZ01WL?hl=pt-br&gl=BR" target="_blank"
+                            class="back-btn" style="background: #0078D4;">
+                            Abrir na Microsoft Store
+                        </a>
+                    </li>
+                    <li>
+                        <strong>Clique em "Obter" ou "Instalar"</strong><br>
+                        O download será feito automaticamente.
+                    </li>
+                    <li>
+                        <strong>Abra o aplicativo</strong><br>
+                        Após a instalação, abra o FullCheck Pro pelo menu Iniciar ou atalho na área de trabalho.
+                    </li>
+                </ol>
+
+                <div class="callout info">
+                    <div class="callout-icon">💡</div>
+                    <div class="callout-content">
+                        <strong>Requisitos do Sistema</strong>
+                        <p>Windows 10 ou superior. Impressora térmica compatível (recomendamos MDK-007 ou similar).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Configuração -->
+            <section id="configuracao">
+                <h2>Configuração Inicial</h2>
+
+                <h3>1. Selecionar Impressora</h3>
+                <p>Na parte superior da tela, clique no seletor de impressora e escolha sua impressora térmica. O
+                    sistema detecta automaticamente impressoras MDK-007.</p>
+
+                <h3>2. Escolher Tamanho de Etiqueta</h3>
+                <p>Selecione o tamanho de etiqueta correspondente ao papel da sua impressora:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tamanho</th>
+                            <th>Uso Recomendado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>6x4 cm (1 coluna)</strong></td>
+                            <td>Padrão Mercado Livre - Mais comum</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6x4 cm (2 colunas)</strong></td>
+                            <td>Impressão em papel contínuo largo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4x2 cm</strong></td>
+                            <td>Etiquetas pequenas para produtos menores</td>
+                        </tr>
+                        <tr>
+                            <td><strong>10x15 cm</strong></td>
+                            <td>Volumes Full (aba Etiquetas de Volume)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="callout warning">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-content">
+                        <strong>Importante</strong>
+                        <p>Ao baixar as etiquetas no Mercado Livre, selecione sempre o formato <strong>ZPL</strong> e
+                            tamanho <strong>6x4 cm</strong>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Importar Lotes -->
+            <section id="importar-lotes">
+                <h2>Importar Lotes de Envio</h2>
+
+                <h3>Como baixar lotes no Mercado Livre</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Acesse "Envios" no Mercado Livre</strong><br>
+                        Vá em seu painel de vendedor e clique em "Envios".
+                    </li>
+                    <li>
+                        <strong>Selecione os envios pendentes</strong><br>
+                        Marque os envios que deseja baixar.
+                    </li>
+                    <li>
+                        <strong>Configure o download</strong><br>
+                        Escolha:
+                        <ul>
+                            <li><strong>Formato:</strong> ZPL</li>
+                            <li><strong>Tamanho:</strong> 6x4 cm</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Clique em "Baixar"</strong><br>
+                        Um arquivo .txt será salvo no seu computador.
+                    </li>
+                </ol>
+
+                <h3>Importando no FullCheck Pro</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Clique em "+ Novo Lote de Envio"</strong><br>
+                        Botão preto no topo da tela.
+                    </li>
+                    <li>
+                        <strong>Confirme as configurações</strong><br>
+                        O sistema mostrará um lembrete sobre o formato ZPL.
+                    </li>
+                    <li>
+                        <strong>Selecione o arquivo .txt</strong><br>
+                        Navegue até o arquivo baixado do Mercado Livre.
+                    </li>
+                </ol>
+
+                <div class="callout success">
+                    <div class="callout-icon">✅</div>
+                    <div class="callout-content">
+                        <strong>Pronto!</strong>
+                        <p>O lote será importado e você verá todos os SKUs na lista. Agora pode iniciar a conferência.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conferência -->
+            <section id="conferencia">
+                <h2>Conferência por Bipagem</h2>
+                <p>O sistema de conferência permite que você separe os pedidos de forma rápida e sem erros.</p>
+
+                <h3>Como funciona</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Importe seu lote de envio</strong><br>
+                        Veja a seção anterior para instruções.
+                    </li>
+                    <li>
+                        <strong>Vá para a aba "Conferência"</strong><br>
+                        Clique na aba no menu superior.
+                    </li>
+                    <li>
+                        <strong>Bipe o produto com seu leitor</strong><br>
+                        Escaneie o código de barras (EAN) ou digite o SKU manualmente.
+                    </li>
+                    <li>
+                        <strong>A etiqueta é impressa automaticamente</strong><br>
+                        Se o produto existir no lote, a etiqueta será enviada para a impressora.
+                    </li>
+                </ol>
+
+                <h3>Sons de Alerta</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Som</th>
+                            <th>Significado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🎵 Acorde ascendente</td>
+                            <td><strong>Sucesso</strong> - Etiqueta impressa corretamente</td>
+                        </tr>
+                        <tr>
+                            <td>🔔 Fanfarra</td>
+                            <td><strong>SKU Concluído</strong> - Todas unidades do SKU foram impressas</td>
+                        </tr>
+                        <tr>
+                            <td>📢 Buzzer grave</td>
+                            <td><strong>Erro</strong> - Código não encontrado ou bloqueado</td>
+                        </tr>
+                        <tr>
+                            <td>🔔 Beep duplo</td>
+                            <td><strong>Aviso</strong> - Limite atingido ou ação requer atenção</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Bloqueio de SKU</h3>
+                <p>Para evitar misturar produtos durante a separação, o sistema trava automaticamente no primeiro SKU
+                    bipado. Você só pode bipar outro SKU após completar todas as unidades do atual.</p>
+
+                <div class="callout info">
+                    <div class="callout-icon">🔒</div>
+                    <div class="callout-content">
+                        <strong>Desativar Bloqueio</strong>
+                        <p>Se precisar desativar temporariamente, clique no ícone de cadeado na aba de conferência.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Impressão -->
+            <section id="impressao">
+                <h2>Impressão de Etiquetas</h2>
+
+                <h3>Impressão Silenciosa</h3>
+                <p>Quando uma impressora térmica está selecionada, as etiquetas são enviadas diretamente para impressão
+                    sem abrir janelas ou popups. Isso acelera significativamente o processo de separação.</p>
+
+                <h3>Imprimir Todas Pendentes</h3>
+                <p>Na aba "Lista de SKUs", clique em <strong>"Imprimir Todas"</strong> para imprimir todas as etiquetas
+                    pendentes de uma vez. Se houver um SKU travado, apenas as etiquetas daquele SKU serão impressas.</p>
+
+                <h3>Desfazer Impressão</h3>
+                <p>Se precisar reimprimir uma etiqueta, clique no botão de desfazer (↩️) ao lado do SKU para decrementar
+                    o contador.</p>
+
+                <div class="callout warning">
+                    <div class="callout-icon">⚠️</div>
+                    <div class="callout-content">
+                        <strong>Limpar Fila de Impressão</strong>
+                        <p>Se a impressora travar, use o botão "Limpar Fila" no menu de impressora para cancelar
+                            trabalhos pendentes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vínculos -->
+            <section id="vinculos">
+                <h2>Vínculos EAN → SKU</h2>
+                <p>Os vínculos permitem associar o código de barras (EAN) do seu produto ao SKU usado no Mercado Livre.
+                </p>
+
+                <h3>Por que usar vínculos?</h3>
+                <p>Se o código de barras do seu produto é diferente do SKU cadastrado no Mercado Livre, você precisa
+                    criar um vínculo para que o sistema reconheça o produto quando for bipado.</p>
+
+                <h3>Cadastrar Vínculo Manual</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Vá para a aba "Vínculos"</strong>
+                    </li>
+                    <li>
+                        <strong>Na seção "Vínculo Manual"</strong><br>
+                        Digite o EAN (código de barras) no primeiro campo.
+                    </li>
+                    <li>
+                        <strong>Digite o SKU correspondente</strong><br>
+                        O SKU que aparece no Mercado Livre.
+                    </li>
+                    <li>
+                        <strong>Clique em "Salvar"</strong>
+                    </li>
+                </ol>
+
+                <div class="callout success">
+                    <div class="callout-icon">💡</div>
+                    <div class="callout-content">
+                        <strong>Dica</strong>
+                        <p>Você pode bipar o EAN diretamente no campo de entrada para maior agilidade!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kits -->
+            <section id="kits">
+                <h2>Kits de Produtos</h2>
+                <p>Kits são produtos compostos por múltiplos itens. Por exemplo, um "Kit 3 Camisetas" que contém 3
+                    produtos diferentes.</p>
+
+                <h3>Como criar um Kit</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Vá para a aba "Vínculos"</strong>
+                    </li>
+                    <li>
+                        <strong>Na seção "Kits"</strong><br>
+                        Digite o SKU do kit (como aparece no Mercado Livre).
+                    </li>
+                    <li>
+                        <strong>Adicione os EANs dos componentes</strong><br>
+                        Bipe ou digite cada EAN e pressione Enter para adicionar mais.
+                    </li>
+                    <li>
+                        <strong>Clique em "Salvar Kit"</strong>
+                    </li>
+                </ol>
+
+                <h3>Como funciona na conferência</h3>
+                <p>Ao bipar o primeiro componente do kit, o sistema entrará em modo de conferência de kit. Você deverá
+                    bipar todos os componentes antes da etiqueta ser impressa.</p>
+
+                <div class="callout info">
+                    <div class="callout-icon">📦</div>
+                    <div class="callout-content">
+                        <strong>Exemplo</strong>
+                        <p>Kit "COMBO-ABC" com 3 componentes: ao bipar o primeiro EAN, o sistema mostrará "Kit
+                            COMBO-ABC: 1/3 componentes". Bipe os outros 2 para imprimir.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vínculos Especiais -->
+            <section id="vinculos-especiais">
+                <h2>Vínculos Especiais</h2>
+                <p>Vínculos especiais permitem que um mesmo EAN esteja vinculado a múltiplos SKUs. Útil quando você
+                    vende o mesmo produto em anúncios diferentes.</p>
+
+                <h3>Quando usar</h3>
+                <ul>
+                    <li>Mesmo produto em múltiplos anúncios</li>
+                    <li>Variações de cor/tamanho com mesmo EAN</li>
+                    <li>Produtos com SKUs alternativos</li>
+                </ul>
+
+                <h3>Como o sistema prioriza</h3>
+                <p>Quando você bipa um EAN com vínculo especial, o sistema:</p>
+                <ol>
+                    <li>Verifica qual SKU está no lote atual</li>
+                    <li>Prioriza o SKU com mais unidades pendentes</li>
+                    <li>Respeita o bloqueio de SKU se houver</li>
+                </ol>
+            </section>
+
+            <!-- Volumes -->
+            <section id="volumes">
+                <h2>Etiquetas de Volume</h2>
+                <p>Para envios Full com múltiplos volumes, use a aba <strong>"Etiquetas de Volume"</strong>.</p>
+
+                <h3>Diferenças das etiquetas normais</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Etiquetas Normais</th>
+                            <th>Etiquetas de Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tamanho</td>
+                            <td>6x4 cm</td>
+                            <td>10x15 cm</td>
+                        </tr>
+                        <tr>
+                            <td>Uso</td>
+                            <td>Colado no produto</td>
+                            <td>Colado na caixa de envio</td>
+                        </tr>
+                        <tr>
+                            <td>Identificador</td>
+                            <td>SKU</td>
+                            <td>Número do Envio + Volume</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Como usar</h3>
+                <ol class="steps">
+                    <li>
+                        <strong>Baixe o lote de volumes no Mercado Livre</strong><br>
+                        São arquivos separados dos lotes de produtos.
+                    </li>
+                    <li>
+                        <strong>Vá para a aba "Etiquetas de Volume"</strong>
+                    </li>
+                    <li>
+                        <strong>Clique em "Importar Lote de Volumes"</strong>
+                    </li>
+                    <li>
+                        <strong>Selecione as etiquetas e clique em "Imprimir"</strong>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Importar/Exportar -->
+            <section id="importar-exportar">
+                <h2>Importar/Exportar Dados</h2>
+
+                <h3>Importar Vínculos do Excel</h3>
+                <p>Você pode importar vínculos em massa usando uma planilha Excel:</p>
+                <ol class="steps">
+                    <li>
+                        <strong>Baixe o modelo</strong><br>
+                        Na aba Vínculos, clique em "Baixar Modelo Excel".
+                    </li>
+                    <li>
+                        <strong>Preencha a planilha</strong><br>
+                        Coluna A: EAN | Coluna B: SKU
+                    </li>
+                    <li>
+                        <strong>Importe a planilha</strong><br>
+                        Clique em "Importar Excel" e selecione o arquivo.
+                    </li>
+                </ol>
+
+                <h3>Exportar/Importar Vínculos (JSON)</h3>
+                <p>Para fazer backup ou transferir seus vínculos entre computadores:</p>
+                <ul>
+                    <li><strong>Exportar:</strong> Clique em "Exportar Vínculos" para baixar um arquivo JSON</li>
+                    <li><strong>Importar:</strong> Clique em "Importar JSON" para restaurar vínculos</li>
+                </ul>
+
+                <div class="callout info">
+                    <div class="callout-icon">💾</div>
+                    <div class="callout-content">
+                        <strong>Backup Automático</strong>
+                        <p>O FullCheck Pro salva seus dados automaticamente em um arquivo local. Recomendamos exportar
+                            periodicamente para backup extra.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dicas -->
+            <section id="dicas">
+                <h2>Dicas e Atalhos</h2>
+
+                <h3>Atalhos de Teclado</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Atalho</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><kbd>Enter</kbd></td>
+                            <td>Confirmar bipagem / Adicionar campo</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>Tab</kbd></td>
+                            <td>Navegar entre campos</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>Esc</kbd></td>
+                            <td>Cancelar / Fechar modal</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Dicas de Produtividade</h3>
+                <ul>
+                    <li><strong>Mantenha vínculos atualizados:</strong> Cadastre novos produtos assim que chegar estoque
+                    </li>
+                    <li><strong>Use kits:</strong> Evite erros em combos e multipacks</li>
+                    <li><strong>Exporte vínculos semanalmente:</strong> Faça backup dos seus dados</li>
+                    <li><strong>Limpe lotes antigos:</strong> Exclua lotes já processados para melhor organização</li>
+                </ul>
+            </section>
+
+            <!-- Problemas -->
+            <section id="problemas">
+                <h2>Solução de Problemas</h2>
+
+                <h3>Código não encontrado no lote</h3>
+                <div class="callout danger">
+                    <div class="callout-icon">❌</div>
+                    <div class="callout-content">
+                        <strong>Erro: "CÓDIGO NÃO ENCONTRADO NO LOTE ATUAL"</strong>
+                        <p>O código bipado não existe no lote importado. Verifique se o produto está no lote ou se
+                            precisa criar um vínculo.</p>
+                    </div>
+                </div>
+
+                <h3>SKU bloqueado</h3>
+                <div class="callout warning">
+                    <div class="callout-icon">🔒</div>
+                    <div class="callout-content">
+                        <strong>Erro: "APENAS O CÓDIGO X É PERMITIDO"</strong>
+                        <p>Complete todas as unidades do SKU atual ou desative o bloqueio de SKU clicando no cadeado.
+                        </p>
+                    </div>
+                </div>
+
+                <h3>Impressora não imprime</h3>
+                <ul>
+                    <li>Verifique se a impressora está ligada e conectada</li>
+                    <li>Selecione a impressora correta no menu superior</li>
+                    <li>Use "Limpar Fila" se houver trabalhos travados</li>
+                    <li>Verifique se há papel na impressora</li>
+                </ul>
+
+                <h3>Arquivo não é aceito</h3>
+                <ul>
+                    <li>Certifique-se de baixar no formato <strong>ZPL</strong></li>
+                    <li>Lotes de volume devem ser importados na aba correta</li>
+                    <li>Verifique se o arquivo não está corrompido</li>
+                </ul>
+
+                <h3>Precisa de mais ajuda?</h3>
+                <p>Entre em contato pelo WhatsApp:</p>
+                <a href="https://wa.me/5541936181098?text=Olá! Preciso de ajuda com o FullCheck Pro" target="_blank"
+                    class="back-btn" style="background: #25D366; margin-top: 1rem;">
+                    💬 Falar no WhatsApp
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 FullCheck Pro • Desenvolvido por <a href="https://apps.microsoft.com/detail/9ND78SMZ01WL"
+                target="_blank">Fabio Braboza</a></p>
+    </footer>
+
+    <script>
+        // Highlight active section in sidebar
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
