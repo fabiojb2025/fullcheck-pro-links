@@ -833,6 +833,11 @@
         }
 
         @media (max-width: 600px) {
+            .hero-bg::before {
+                animation: none;
+                background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
+            }
+
             .hero h1 {
                 font-size: 2rem;
             }
@@ -846,6 +851,7 @@
             .stat {
                 text-align: center;
             }
+
 
             .btn {
                 width: 100%;
@@ -1044,8 +1050,8 @@
             <div class="steps-container">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3 class="step-title">Importe seu Lote</h3>
-                    <p class="step-description">Cole os dados da planilha do Mercado Livre ou importe diretamente</p>
+                    <h3 class="step-title">Importe o Arquivo ZPL</h3>
+                    <p class="step-description">Baixe o arquivo ZPL do Mercado Livre e importe para o sistema</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
@@ -1146,7 +1152,7 @@
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Quais impressoras são compatíveis?</h3>
-                    <p class="faq-answer">Funciona com impressoras térmicas que suportam etiquetas de 40x30mm até
+                    <p class="faq-answer">Funciona com impressoras térmicas que suportam etiquetas de 40x25mm até
                         100x150mm.</p>
                 </div>
                 <div class="faq-item">
@@ -1161,7 +1167,7 @@
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Preciso de leitor de código de barras?</h3>
-                    <p class="faq-answer">Recomendamos, mas você também pode digitar o EAN manualmente.</p>
+                    <p class="faq-answer">Recomendamos, mas você também pode digitar o EAN ou SKU manualmente.</p>
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Funciona com outros marketplaces?</h3>
