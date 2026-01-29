@@ -784,6 +784,84 @@
             fill: white;
         }
 
+        /* Video Tutorials Section */
+        .tutorials {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 50%, var(--dark) 100%);
+        }
+
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tutorial-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tutorial-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.2);
+        }
+
+        .tutorial-video-wrapper {
+            position: relative;
+            background: var(--darker);
+        }
+
+        .tutorial-video-wrapper video {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .tutorial-content {
+            padding: 1.5rem;
+        }
+
+        .tutorial-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .tutorial-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .tutorial-description {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 992px) {
+            .tutorials-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
         /* Mobile Responsive */
         @media (max-width: 992px) {
             .hero-container {
@@ -1063,6 +1141,64 @@
                     <div class="step-number">3</div>
                     <h3 class="step-title">Imprima as Etiquetas</h3>
                     <p class="step-description">Etiquetas são impressas automaticamente conforme você confere</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Tutorials -->
+    <section class="tutorials" id="tutorials">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Tutoriais em Vídeo</span>
+                <h2 class="section-title">Aprenda na Prática</h2>
+                <p class="section-subtitle">Veja como usar cada funcionalidade do FullCheck Pro com nossos vídeos
+                    tutoriais</p>
+            </div>
+            <div class="tutorials-grid">
+                <div class="tutorial-card">
+                    <div class="tutorial-video-wrapper">
+                        <video controls preload="metadata">
+                            <source
+                                src="https://res.cloudinary.com/dzsp5muas/video/upload/v1769714961/V%C3%8DDEO_2_IMPORTANDO_SEU_PRIMEIRO_LOTE_unjcvb.mp4"
+                                type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-badge">🎬 Tutorial</span>
+                        <h3 class="tutorial-title">Importando seu Primeiro Lote</h3>
+                        <p class="tutorial-description">Aprenda a baixar o arquivo ZPL do Mercado Livre e importar para
+                            o sistema.</p>
+                    </div>
+                </div>
+                <div class="tutorial-card">
+                    <div class="tutorial-video-wrapper">
+                        <video controls preload="metadata">
+                            <source
+                                src="https://res.cloudinary.com/dzsp5muas/video/upload/v1769725120/CONFER%C3%8ANCIA_POR_BIPAGEM_ypyzic.mp4"
+                                type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-badge">🎬 Tutorial</span>
+                        <h3 class="tutorial-title">Conferência por Bipagem</h3>
+                        <p class="tutorial-description">Veja como conferir produtos usando o leitor de código de barras.
+                        </p>
+                    </div>
+                </div>
+                <div class="tutorial-card">
+                    <div class="tutorial-video-wrapper">
+                        <video controls preload="metadata">
+                            <source
+                                src="https://res.cloudinary.com/dzsp5muas/video/upload/v1769725357/Como_trabalhar_com_kit_u10myw.mp4"
+                                type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-badge">🎬 Tutorial</span>
+                        <h3 class="tutorial-title">Como Trabalhar com Kits</h3>
+                        <p class="tutorial-description">Aprenda a cadastrar e conferir kits de produtos compostos.</p>
+                    </div>
                 </div>
             </div>
         </div>

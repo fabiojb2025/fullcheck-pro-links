@@ -456,6 +456,53 @@
             text-decoration: none;
         }
 
+        /* Video Tutorial Cards */
+        .video-tutorial {
+            margin: 2rem 0;
+            background: linear-gradient(135deg, var(--slate-800) 0%, var(--darker) 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-tutorial-header {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .video-tutorial-header .icon {
+            font-size: 1.25rem;
+        }
+
+        .video-tutorial-header h4 {
+            margin: 0;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .video-tutorial video {
+            width: 100%;
+            display: block;
+        }
+
+        .video-tutorial-footer {
+            padding: 1rem 1.5rem;
+            background: var(--slate-900);
+            color: var(--slate-400);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .video-tutorial-footer .tip-icon {
+            color: var(--warning);
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar {
@@ -735,6 +782,23 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="video-tutorial">
+                    <div class="video-tutorial-header">
+                        <span class="icon">🎬</span>
+                        <h4>Vídeo Tutorial: Importando seu Primeiro Lote</h4>
+                    </div>
+                    <video controls preload="metadata" poster="">
+                        <source
+                            src="https://res.cloudinary.com/dzsp5muas/video/upload/v1769714961/V%C3%8DDEO_2_IMPORTANDO_SEU_PRIMEIRO_LOTE_unjcvb.mp4"
+                            type="video/mp4">
+                        Seu navegador não suporta vídeos HTML5.
+                    </video>
+                    <div class="video-tutorial-footer">
+                        <span class="tip-icon">💡</span>
+                        <span>Dica: Ative o som para uma experiência completa</span>
+                    </div>
+                </div>
             </section>
 
             <!-- Conferência -->
@@ -799,6 +863,23 @@
                     <div class="callout-content">
                         <strong>Desativar Bloqueio</strong>
                         <p>Se precisar desativar temporariamente, clique no ícone de cadeado na aba de conferência.</p>
+                    </div>
+                </div>
+
+                <div class="video-tutorial">
+                    <div class="video-tutorial-header">
+                        <span class="icon">🎬</span>
+                        <h4>Vídeo Tutorial: Conferência por Bipagem</h4>
+                    </div>
+                    <video controls preload="metadata" poster="">
+                        <source
+                            src="https://res.cloudinary.com/dzsp5muas/video/upload/v1769725120/CONFER%C3%8ANCIA_POR_BIPAGEM_ypyzic.mp4"
+                            type="video/mp4">
+                        Seu navegador não suporta vídeos HTML5.
+                    </video>
+                    <div class="video-tutorial-footer">
+                        <span class="tip-icon">💡</span>
+                        <span>Dica: Ative o som para uma experiência completa</span>
                     </div>
                 </div>
             </section>
@@ -900,6 +981,23 @@
                         <strong>Exemplo</strong>
                         <p>Kit "COMBO-ABC" com 3 componentes: ao bipar o primeiro EAN, o sistema mostrará "Kit
                             COMBO-ABC: 1/3 componentes". Bipe os outros 2 para imprimir.</p>
+                    </div>
+                </div>
+
+                <div class="video-tutorial">
+                    <div class="video-tutorial-header">
+                        <span class="icon">🎬</span>
+                        <h4>Vídeo Tutorial: Como Trabalhar com Kits</h4>
+                    </div>
+                    <video controls preload="metadata" poster="">
+                        <source
+                            src="https://res.cloudinary.com/dzsp5muas/video/upload/v1769725357/Como_trabalhar_com_kit_u10myw.mp4"
+                            type="video/mp4">
+                        Seu navegador não suporta vídeos HTML5.
+                    </video>
+                    <div class="video-tutorial-footer">
+                        <span class="tip-icon">💡</span>
+                        <span>Dica: Ative o som para uma experiência completa</span>
                     </div>
                 </div>
             </section>
