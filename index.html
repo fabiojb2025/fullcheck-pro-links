@@ -1245,17 +1245,20 @@
 
             video.muted = false;
             video.volume = 1.0;
+            video.controls = true;
             video.play();
             overlay.classList.add('hidden');
 
             video.addEventListener('ended', function () {
                 overlay.classList.remove('hidden');
+                video.controls = false;
                 video.currentTime = 0;
             });
 
             video.addEventListener('pause', function () {
                 if (!video.ended) {
-                    overlay.classList.remove('hidden');
+                    // Don't show overlay immediately on pause to let user use controls
+                    // overlay.classList.remove('hidden'); 
                 }
             });
         }
