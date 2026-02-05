@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HC3WV7CR29"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'AW-17931180308');
+        gtag('config', 'G-HC3WV7CR29');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullCheck Pro | Configurar Impressora</title>
+    <meta name="description"
+        content="Guia completo para configurar sua impressora térmica para uso com o FullCheck Pro. Medidas de etiquetas e configurações.">
+    <meta name="theme-color" content="#6366F1">
+    <link rel="icon" type="image/png" href="../icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page-specific styles */
+        .printer-hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-400);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+
+        .back-to-home:hover {
+            color: white;
+        }
+
+        .back-to-home svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .printer-content {
+            padding: 2rem 2rem 6rem;
+        }
+
+        .printer-section {
+            max-width: 1000px;
+            margin: 0 auto 3rem;
+        }
+
+        .printer-section h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .printer-section h2 .emoji {
+            font-size: 1.5rem;
+        }
+
+        .printer-section p {
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* Label sizes table */
+        .label-table-container {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .label-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .label-table th {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--primary-light);
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .th-subtitle {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gray-400);
+            margin-top: 0.25rem;
+        }
+
+        .dim-label {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.3);
+            color: var(--primary-light);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+
+        .label-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray-300);
+        }
+
+        .label-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .label-table tr:hover td {
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .label-type {
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Dimension pair with copy buttons */
+        .dimension-pair {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-value {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.4rem 0.6rem;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .dimension-x {
+            color: var(--gray-500);
+            font-weight: 400;
+            margin: 0 0.25rem;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            padding: 0;
+        }
+
+        .copy-btn:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .copy-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--gray-400);
+            fill: none;
+        }
+
+        .copy-btn:hover svg {
+            stroke: var(--primary-light);
+        }
+
+        .copy-btn.copied svg {
+            stroke: var(--success);
+        }
+
+        /* Steps list for Windows configuration */
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .step-item:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .step-item .step-number {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: white;
+        }
+
+        .step-content p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        kbd {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 0.15rem 0.4rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            color: var(--primary-light);
+        }
+
+        /* Tips section */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .tip-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .tip-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-card p {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--success);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            .label-table th,
+            .label-table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            .copy-value {
+                padding: 0.3rem 0.4rem;
+                font-size: 0.85rem;
+            }
+
+            .copy-btn {
+                width: 20px;
+                height: 20px;
+            }
+
+            .copy-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="../icon.png" alt="FullCheck Pro">
+                <span>FullCheck Pro</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Recursos</a></li>
+                <li><a href="index.html#how-it-works">Como Funciona</a></li>
+                <li><a href="index.html#pricing">Preços</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+                <li><a href="tutorials.html">Tutoriais</a></li>
+                <li><a href="printer-setup.html">Impressora</a></li>
+            </ul>
+            <a href="https://apps.microsoft.com/detail/9ND78SMZ01WL?hl=pt-br&gl=BR" target="_blank"
+                class="nav-cta">Baixar Grátis</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="printer-hero">
+        <div class="section-container">
+            <a href="tutorials.html" class="back-to-home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Voltar para Tutoriais
+            </a>
+            <h1 class="section-title">🖨️ Configurar Impressora</h1>
+            <p class="section-subtitle">Guia completo de configuração de impressora térmica e medidas de etiquetas para
+                o FullCheck Pro</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="printer-content">
+        <div class="printer-section">
+            <h2><span class="emoji">📏</span> Medidas de Etiquetas Suportadas</h2>
+            <p>Confira abaixo as medidas de etiquetas compatíveis com o FullCheck Pro. Clique no botão ao lado de cada
+                número para copiar o valor.</p>
+
+            <div class="label-table-container">
+                <table class="label-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo de Etiqueta</th>
+                            <th>mm<div class="th-subtitle"><span class="dim-label">L</span> × <span
+                                        class="dim-label">A</span></div>
+                            </th>
+                            <th>cm<div class="th-subtitle"><span class="dim-label">L</span> × <span
+                                        class="dim-label">A</span></div>
+                            </th>
+                            <th>Polegadas<div class="th-subtitle"><span class="dim-label">L</span> × <span
+                                        class="dim-label">A</span></div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Pequena -->
+                        <tr>
+                            <td class="label-type">Pequena</td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">40<button class="copy-btn"
+                                            onclick="copyToClipboard('40', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">25<button class="copy-btn"
+                                            onclick="copyToClipboard('25', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">4,0<button class="copy-btn"
+                                            onclick="copyToClipboard('4.0', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">2,5<button class="copy-btn"
+                                            onclick="copyToClipboard('2.5', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">1,57<button class="copy-btn"
+                                            onclick="copyToClipboard('1.57', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">0,98<button class="copy-btn"
+                                            onclick="copyToClipboard('0.98', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- Média -->
+                        <tr>
+                            <td class="label-type">Média</td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">50<button class="copy-btn"
+                                            onclick="copyToClipboard('50', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">25<button class="copy-btn"
+                                            onclick="copyToClipboard('25', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">5,0<button class="copy-btn"
+                                            onclick="copyToClipboard('5.0', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">2,5<button class="copy-btn"
+                                            onclick="copyToClipboard('2.5', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">1,97<button class="copy-btn"
+                                            onclick="copyToClipboard('1.97', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">0,98<button class="copy-btn"
+                                            onclick="copyToClipboard('0.98', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- Padrão ML -->
+                        <tr>
+                            <td class="label-type">Padrão ML</td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">60<button class="copy-btn"
+                                            onclick="copyToClipboard('60', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">40<button class="copy-btn"
+                                            onclick="copyToClipboard('40', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">6,0<button class="copy-btn"
+                                            onclick="copyToClipboard('6.0', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">4,0<button class="copy-btn"
+                                            onclick="copyToClipboard('4.0', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">2,36<button class="copy-btn"
+                                            onclick="copyToClipboard('2.36', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">1,57<button class="copy-btn"
+                                            onclick="copyToClipboard('1.57', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- Maior -->
+                        <tr>
+                            <td class="label-type">Maior</td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">80<button class="copy-btn"
+                                            onclick="copyToClipboard('80', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">50<button class="copy-btn"
+                                            onclick="copyToClipboard('50', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">8,0<button class="copy-btn"
+                                            onclick="copyToClipboard('8.0', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">5,0<button class="copy-btn"
+                                            onclick="copyToClipboard('5.0', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">3,15<button class="copy-btn"
+                                            onclick="copyToClipboard('3.15', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">1,97<button class="copy-btn"
+                                            onclick="copyToClipboard('1.97', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- Volume (box) -->
+                        <tr>
+                            <td class="label-type">Volume (box)</td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">100<button class="copy-btn"
+                                            onclick="copyToClipboard('100', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">150<button class="copy-btn"
+                                            onclick="copyToClipboard('150', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">10<button class="copy-btn"
+                                            onclick="copyToClipboard('10', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">15<button class="copy-btn"
+                                            onclick="copyToClipboard('15', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="dimension-pair">
+                                    <span class="copy-value">3,94<button class="copy-btn"
+                                            onclick="copyToClipboard('3.94', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                    <span class="dimension-x">×</span>
+                                    <span class="copy-value">5,91<button class="copy-btn"
+                                            onclick="copyToClipboard('5.91', this)" title="Copiar"><svg
+                                                viewBox="0 0 24 24" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                </path>
+                                            </svg></button></span>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Windows 10 Configuration -->
+        <div class="printer-section">
+            <h2><span class="emoji">🪟</span> Configurar Impressora no Windows 10</h2>
+            <p>Siga os passos abaixo para configurar sua impressora térmica no Windows 10:</p>
+
+            <div class="steps-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Abra as Configurações</h4>
+                        <p>Clique no menu <strong>Iniciar</strong> → <strong>Configurações</strong> (ícone de
+                            engrenagem) ou pressione <kbd>Win</kbd> + <kbd>I</kbd></p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Acesse Dispositivos</h4>
+                        <p>Clique em <strong>Dispositivos</strong> → <strong>Impressoras e scanners</strong></p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Selecione sua Impressora</h4>
+                        <p>Localize sua impressora térmica na lista e clique nela, depois clique em
+                            <strong>Gerenciar</strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Preferências de Impressão</h4>
+                        <p>Clique em <strong>Preferências de impressão</strong> para abrir as configurações</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Configure o Tamanho da Etiqueta</h4>
+                        <p>Na aba <strong>Página</strong> ou <strong>Layout</strong>, configure a
+                            <strong>largura</strong> e <strong>altura</strong> conforme a tabela de medidas acima
+                        </p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Salve as Configurações</h4>
+                        <p>Clique em <strong>Aplicar</strong> e depois <strong>OK</strong> para salvar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Windows 11 Configuration -->
+        <div class="printer-section">
+            <h2><span class="emoji">🪟</span> Configurar Impressora no Windows 11</h2>
+            <p>Siga os passos abaixo para configurar sua impressora térmica no Windows 11:</p>
+
+            <div class="steps-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Abra as Configurações</h4>
+                        <p>Clique com o botão direito no menu <strong>Iniciar</strong> → <strong>Configurações</strong>
+                            ou pressione <kbd>Win</kbd> + <kbd>I</kbd></p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Acesse Bluetooth e Dispositivos</h4>
+                        <p>No menu lateral, clique em <strong>Bluetooth e dispositivos</strong> → <strong>Impressoras e
+                                scanners</strong></p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Selecione sua Impressora</h4>
+                        <p>Localize sua impressora térmica na lista e clique nela</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Preferências de Impressão</h4>
+                        <p>Clique em <strong>Preferências de impressão</strong> na página de detalhes da impressora</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Configure o Tamanho da Etiqueta</h4>
+                        <p>Na aba <strong>Página</strong> ou <strong>Layout</strong>, configure a
+                            <strong>largura</strong> e <strong>altura</strong> conforme a tabela de medidas acima
+                        </p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Salve as Configurações</h4>
+                        <p>Clique em <strong>Aplicar</strong> e depois <strong>OK</strong> para salvar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="printer-section">
+            <h2><span class="emoji">💡</span> Dicas de Configuração</h2>
+            <p>Siga estas dicas para obter os melhores resultados na impressão de suas etiquetas.</p>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>🔧 Calibração</h3>
+                    <p>Sempre calibre a impressora após trocar o rolo de etiquetas para evitar impressões cortadas ou
+                        desalinhadas.</p>
+                </div>
+                <div class="tip-card">
+                    <h3>📐 Tamanho Correto</h3>
+                    <p>Configure o tamanho da etiqueta no driver da impressora com as mesmas medidas do rolo que você
+                        está usando.</p>
+                </div>
+                <div class="tip-card">
+                    <h3>🌡️ Temperatura</h3>
+                    <p>Ajuste a temperatura de impressão se as etiquetas estiverem muito claras ou muito escuras.</p>
+                </div>
+                <div class="tip-card">
+                    <h3>⚡ Velocidade</h3>
+                    <p>Reduza a velocidade de impressão para melhorar a qualidade do código de barras se houver
+                        problemas de leitura.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="../icon.png" alt="FullCheck Pro">
+                <span>FullCheck Pro</span>
+            </div>
+            <div class="footer-links">
+                <a href="manual.html">Manual</a>
+                <a href="https://wa.me/5541936181098?text=Olá! Preciso de ajuda com o FullCheck Pro"
+                    target="_blank">Suporte</a>
+                <a href="https://apps.microsoft.com/detail/9ND78SMZ01WL?hl=pt-br&gl=BR" target="_blank">Microsoft
+                    Store</a>
+            </div>
+            <p class="footer-copyright">© 2026 FullCheck Pro • Fabio Braboza</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/5541936181098?text=Olá! Preciso de ajuda com o FullCheck Pro" target="_blank"
+            title="Fale conosco no WhatsApp">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">✓ Copiado!</div>
+
+    <script>
+        // Copy to clipboard function
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show success state on button
+                button.classList.add('copied');
+                button.innerHTML = `
+                    <svg viewBox="0 0 24 24" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                `;
+
+                // Show toast
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+
+                // Reset after 1.5 seconds
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.innerHTML = `
+                        <svg viewBox="0 0 24 24" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    `;
+                    toast.classList.remove('show');
+                }, 1500);
+            }).catch(err => {
+                console.error('Falha ao copiar:', err);
+            });
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            alert('Menu mobile - pode ser expandido conforme necessário');
+        }
+    </script>
+</body>
+
+</html>
