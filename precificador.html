@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Precificador — ML & Shopee | FullCheck Pro</title>
+    <meta name="description"
+        content="Calculadora de precificação para Mercado Livre e Shopee. Calcule preços, margens e lucro líquido automaticamente.">
+    <link rel="icon" type="image/png" href="../icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 45%, #312e81 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 16px;
+        }
+
+        /* ── BACK BUTTON ── */
+        .back-link {
+            width: 100%;
+            max-width: 940px;
+            margin-bottom: 16px;
+        }
+
+        .back-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, .6);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .1);
+            transition: all .2s;
+        }
+
+        .back-link a:hover {
+            background: rgba(255, 255, 255, .12);
+            color: #fff;
+        }
+
+        .back-link a svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ── CABEÇALHO ── */
+        .app-header {
+            width: 100%;
+            max-width: 940px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .app-header .logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.3px;
+        }
+
+        .app-header .logo span {
+            background: linear-gradient(135deg, var(--primary), #818CF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .app-header .sub {
+            font-size: 12px;
+            color: rgba(255, 255, 255, .5);
+            margin-left: auto;
+            font-weight: 500;
+        }
+
+        /* ── CARTÃO PRINCIPAL ── */
+        .card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, .35);
+            width: 100%;
+            max-width: 940px;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            overflow: hidden;
+        }
+
+        /* ── COLUNA ESQUERDA ── */
+        .left-panel {
+            padding: 32px 30px;
+            border-right: 1px solid #f0f2f7;
+        }
+
+        /* ── ABAS ── */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 28px;
+            background: #f4f6fb;
+            border-radius: 14px;
+            padding: 5px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 0;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #999;
+            border-radius: 10px;
+            transition: all .22s ease;
+            font-family: inherit;
+        }
+
+        .tab-btn.active-ml {
+            background: #fff;
+            color: #1a2260;
+            box-shadow: 0 2px 12px rgba(26, 34, 96, .12);
+        }
+
+        .tab-btn.active-sh {
+            background: linear-gradient(135deg, #ee4d2d, #ff7043);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(238, 77, 45, .35);
+        }
+
+        .tab-btn:not(.active-ml):not(.active-sh):hover {
+            background: #eceef5;
+            color: #555;
+        }
+
+        /* ── SEÇÕES ── */
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #aab;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 12px;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid #f0f2f7;
+            margin: 20px 0;
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        /* ── CAMPOS ── */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .field label {
+            font-size: 11px;
+            color: #8890a8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .input-wrap {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #e8ebf4;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fafbfd;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .input-wrap:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, .12);
+            background: #fff;
+        }
+
+        .input-wrap span {
+            padding: 0 11px;
+            font-size: 13px;
+            color: #aab;
+            background: #f4f6fb;
+            border-right: 1.5px solid #e8ebf4;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .input-wrap span.suffix {
+            border-right: none;
+            border-left: 1.5px solid #e8ebf4;
+        }
+
+        .input-wrap input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0 12px;
+            font-size: 14px;
+            height: 40px;
+            background: transparent;
+            color: #1e293b;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        .input-wrap input::placeholder {
+            color: #c0c8d8;
+            font-weight: 400;
+        }
+
+        .input-wrap.readonly {
+            background: linear-gradient(135deg, #f0fbf4, #e8f7ee);
+            border-color: #a8dfc0;
+        }
+
+        .input-wrap.readonly input {
+            color: #1a8a46;
+            font-weight: 700;
+        }
+
+        .input-wrap.highlight {
+            background: linear-gradient(135deg, #fffbea, #fff8d6);
+            border-color: #f0d060;
+        }
+
+        .input-wrap.highlight input {
+            color: #8a6800;
+        }
+
+        select {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0 12px;
+            font-size: 14px;
+            height: 40px;
+            background: transparent;
+            cursor: pointer;
+            color: #1e293b;
+            font-weight: 600;
+            appearance: none;
+            font-family: inherit;
+        }
+
+        /* ── ALERTAS / BADGES ── */
+        .alert {
+            border-radius: 10px;
+            padding: 9px 13px;
+            font-size: 12px;
+            font-weight: 500;
+            display: none;
+            align-items: flex-start;
+            gap: 7px;
+        }
+
+        .alert.show {
+            display: flex;
+        }
+
+        /* ── COLUNA DIREITA ── */
+        .right-panel {
+            background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%);
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* ── PLATAFORMA BADGE ── */
+        .plat-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .plat-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, .4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .badge-ml {
+            background: linear-gradient(135deg, var(--primary), #818CF8);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: .8px;
+            box-shadow: 0 2px 10px rgba(99, 102, 241, .4);
+        }
+
+        .badge-sh {
+            background: linear-gradient(135deg, #ee4d2d, #ff7043);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: .8px;
+            box-shadow: 0 2px 10px rgba(238, 77, 45, .4);
+        }
+
+        /* ── PREÇO ── */
+        .price-section {
+            margin-bottom: 24px;
+        }
+
+        .price-block {
+            margin-bottom: 18px;
+        }
+
+        .price-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .price-block-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, .4);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .price-block-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .price-anuncio {
+            font-size: 24px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, .75);
+            letter-spacing: -.5px;
+        }
+
+        .price-final {
+            font-size: 38px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .price-off {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), #818CF8);
+            border-radius: 20px;
+            padding: 3px 10px;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, .35);
+        }
+
+        .btn-copy {
+            margin-left: auto;
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, .6);
+            font-size: 12px;
+            cursor: pointer;
+            padding: 5px 12px;
+            transition: all .15s;
+            font-family: inherit;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, .18);
+            color: #fff;
+            border-color: rgba(255, 255, 255, .4);
+        }
+
+        .btn-copy.copied {
+            background: rgba(26, 138, 70, .3);
+            color: #6ee89b;
+            border-color: rgba(110, 232, 155, .4);
+        }
+
+        .divider-prices {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            margin: 12px 0;
+        }
+
+        /* ── DETALHAMENTO ── */
+        .detail-card {
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 16px;
+            padding: 16px 18px;
+            backdrop-filter: blur(4px);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-card h3 {
+            font-size: 10px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+            color: rgba(255, 255, 255, .7);
+            font-weight: 500;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row.lucro {
+            font-weight: 800;
+            font-size: 15px;
+            background: rgba(26, 138, 70, .2);
+            border: 1px solid rgba(110, 232, 155, .2);
+            margin: 10px -18px -16px;
+            padding: 12px 18px;
+            border-radius: 0 0 14px 14px;
+            border-top: none;
+            color: #6ee89b;
+        }
+
+        .detail-row.lucro span:last-child {
+            color: #6ee89b;
+        }
+
+        .detail-row .neg {
+            color: #ff8a80;
+            font-weight: 600;
+        }
+
+        .detail-row span:first-child {
+            color: rgba(255, 255, 255, .5);
+        }
+
+        /* ── RESPONSIVO ── */
+        @media (max-width: 680px) {
+            .card {
+                grid-template-columns: 1fr;
+            }
+
+            .right-panel {
+                border-radius: 0 0 24px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="back-link">
+        <a href="index.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            Voltar ao Painel
+        </a>
+    </div>
+
+    <div class="app-header">
+        <div class="logo">Precifi<span>car</span></div>
+        <div class="sub">Mercado Livre & Shopee</div>
+    </div>
+
+    <div class="card">
+
+        <!-- ══════════════ COLUNA ESQUERDA ══════════════ -->
+        <div class="left-panel">
+
+            <!-- Abas -->
+            <div class="tabs">
+                <button class="tab-btn active-ml" id="btn-ml" onclick="setPlat('ml')">Mercado Livre</button>
+                <button class="tab-btn" id="btn-sh" onclick="setPlat('sh')">Shopee</button>
+            </div>
+
+            <!-- Custos do Produto -->
+            <p class="section-title">Custos do Produto</p>
+            <div class="grid2" style="margin-bottom:14px;">
+                <div class="field">
+                    <label>Preço Fornecedor</label>
+                    <div class="input-wrap">
+                        <span>R$</span>
+                        <input type="number" id="preco_fornecedor" min="0" step="0.01" placeholder="0,00"
+                            oninput="onInput()" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Desc. Fornec. (%)</label>
+                    <div class="input-wrap">
+                        <input type="number" id="desc_fornecedor" min="0" max="100" step="0.1" placeholder="0" value="0"
+                            oninput="onInput()" />
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                <div class="field full">
+                    <label>Custo Fixo Adicional (Embalagem, etc.)</label>
+                    <div class="input-wrap">
+                        <span>R$</span>
+                        <input type="number" id="custo_frete" min="0" step="0.01" placeholder="0,00" value="0"
+                            oninput="onInput()" />
+                    </div>
+                </div>
+                <!-- Peso (ML) -->
+                <div class="field full" id="wrap-peso">
+                    <label>Peso do Produto (kg)</label>
+                    <div class="input-wrap">
+                        <input type="number" id="peso_produto" min="0.01" step="0.01" placeholder="Ex: 0.5" value="0.5"
+                            oninput="onInput()" />
+                        <span class="suffix">kg</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Taxas da Plataforma -->
+            <p class="section-title">Taxas da Plataforma</p>
+            <div class="grid2">
+                <div class="field">
+                    <label id="lbl-comissao">Comissão (%)</label>
+                    <div class="input-wrap" id="wrap-comissao">
+                        <input type="number" id="comissao" min="0" max="100" step="0.1" value="12"
+                            oninput="onInput()" />
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label id="lbl-taxa">Custo Envio ML (Automático)</label>
+                    <div class="input-wrap readonly" id="wrap-taxa">
+                        <span>R$</span>
+                        <input type="text" id="taxa_fixa" readonly value="0,00" />
+                    </div>
+                </div>
+                <div class="field full" id="wrap-ml-faixa">
+                    <div class="alert show"
+                        style="background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.35);color:#818CF8;font-weight:500;">
+                        📦 <span id="ml-faixa-txt">Faixa de Frete: aguardando cálculo...</span>
+                    </div>
+                </div>
+                <div class="field full" id="wrap-shopee-faixa" style="display:none;">
+                    <div class="alert show"
+                        style="background:rgba(200,60,20,.10);border:1px solid rgba(200,60,20,.45);color:#b83010;font-weight:500;">
+                        🛒 <span id="shopee-faixa-txt">Faixa Shopee: 20% + R$ 4,00 (até R$ 79,99)</span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Impostos (NFe)</label>
+                    <div class="input-wrap">
+                        <input type="number" id="impostos" min="0" max="100" step="0.1" value="6" oninput="onInput()" />
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Margem Líquida</label>
+                    <div class="input-wrap">
+                        <input type="number" id="margem" min="0" max="99" step="0.1" value="20" oninput="onInput()" />
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                <div class="field full">
+                    <label>Estratégia de Desconto (Marketing)</label>
+                    <div class="input-wrap highlight">
+                        <input type="number" id="desconto_mkt" min="0" max="100" step="0.1" value="5"
+                            oninput="onInput()" />
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ══════════════ COLUNA DIREITA ══════════════ -->
+        <div class="right-panel">
+
+            <div class="plat-row">
+                <span class="plat-label">Precificação</span>
+                <span class="badge-ml" id="badge-plat">MERCADO LIVRE</span>
+            </div>
+
+            <div class="price-section">
+                <!-- Bloco: Preço do Anúncio -->
+                <div class="price-block" id="block-anuncio" style="display:none;">
+                    <div class="price-block-label">Preço do Anúncio</div>
+                    <div class="price-block-row">
+                        <span class="price-anuncio" id="preco-original">R$ 0,00</span>
+                        <span class="price-off" id="preco-off">5% OFF</span>
+                        <button class="btn-copy" id="btn-copy-anuncio"
+                            onclick="copiarPreco('preco-original','btn-copy-anuncio')"
+                            title="Copiar preço do anúncio">Copiar</button>
+                    </div>
+                </div>
+                <hr class="divider-prices" id="divider-prices" style="display:none;">
+                <!-- Bloco: Preço de Venda -->
+                <div class="price-block">
+                    <div class="price-block-label" id="lbl-preco-venda">Preço de Venda</div>
+                    <div class="price-block-row">
+                        <span class="price-final" id="preco-final">R$ 0,00</span>
+                        <button class="btn-copy" id="btn-copy-venda"
+                            onclick="copiarPreco('preco-final','btn-copy-venda')"
+                            title="Copiar preço de venda">Copiar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <h3>Detalhamento (R$)</h3>
+                <div class="detail-row">
+                    <span>Produto (Líquido):</span>
+                    <span id="d-produto">R$ 0,00</span>
+                </div>
+                <div class="detail-row">
+                    <span>Custo Fixo Adicional:</span>
+                    <span id="d-frete">R$ 0,00</span>
+                </div>
+                <div class="detail-row">
+                    <span>Comissão (%):</span>
+                    <span class="neg" id="d-comissao">- R$ 0,00</span>
+                </div>
+                <div class="detail-row">
+                    <span id="lbl-d-taxa">Custo Envio ML:</span>
+                    <span class="neg" id="d-taxa">- R$ 0,00</span>
+                </div>
+                <div class="detail-row">
+                    <span>Impostos:</span>
+                    <span class="neg" id="d-impostos">- R$ 0,00</span>
+                </div>
+                <div class="detail-row lucro">
+                    <span>LUCRO LÍQUIDO:</span>
+                    <span id="d-lucro">R$ 0,00</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // ─── Tabela de custos ML (a partir de 02/03/2026) ─────────────────────────
+        const ML_CUSTOS = {
+            0.3: [5.65, 6.55, 7.75, 12.35, 14.35, 16.45, 18.45, 20.95],
+            0.5: [5.95, 6.65, 7.85, 13.25, 15.45, 17.65, 19.85, 22.55],
+            1: [6.05, 6.75, 7.95, 13.85, 16.15, 18.45, 20.75, 23.65],
+            1.5: [6.15, 6.85, 8.05, 14.15, 16.45, 18.85, 21.15, 24.65],
+            2: [6.25, 6.95, 8.15, 14.45, 16.85, 19.25, 21.65, 24.65],
+            3: [6.35, 7.95, 8.55, 15.75, 18.35, 21.05, 23.65, 26.25],
+            4: [6.45, 8.15, 8.95, 17.05, 19.85, 22.65, 25.55, 28.35],
+            5: [6.55, 8.35, 9.75, 18.45, 21.55, 24.65, 27.75, 30.75],
+            6: [6.65, 8.55, 9.95, 25.45, 28.55, 32.65, 35.75, 39.75],
+            7: [6.75, 8.75, 10.15, 27.05, 31.05, 36.05, 40.05, 44.05],
+            8: [6.85, 8.95, 10.35, 28.85, 33.65, 38.45, 43.25, 48.05],
+            9: [6.95, 9.15, 10.55, 29.65, 34.55, 39.55, 44.45, 49.35],
+            11: [7.05, 9.55, 10.95, 41.25, 48.05, 54.95, 61.75, 68.65],
+            13: [7.15, 9.95, 11.35, 42.15, 49.25, 56.25, 63.25, 70.25],
+            15: [7.25, 10.15, 11.55, 45.05, 52.45, 59.95, 67.45, 74.95],
+            17: [7.35, 10.35, 11.75, 48.55, 56.05, 63.55, 70.75, 78.65],
+            20: [7.45, 10.55, 11.95, 54.75, 63.85, 72.95, 82.05, 91.15],
+            25: [7.65, 10.95, 12.15, 64.05, 75.05, 84.75, 95.35, 105.95],
+            30: [7.75, 11.15, 12.35, 65.95, 75.45, 85.55, 96.25, 106.95],
+            40: [7.85, 11.35, 12.55, 67.75, 78.95, 88.95, 99.15, 107.05],
+            50: [7.95, 11.55, 12.75, 70.25, 81.05, 92.05, 102.55, 110.75],
+            60: [8.05, 11.75, 12.95, 74.95, 86.45, 98.15, 109.35, 118.15],
+            70: [8.15, 11.95, 13.15, 80.25, 92.95, 105.05, 117.15, 126.55],
+            80: [8.25, 12.15, 13.35, 83.95, 97.05, 109.85, 122.45, 132.25],
+            90: [8.35, 12.35, 13.55, 93.25, 107.45, 122.05, 136.05, 146.95],
+            100: [8.45, 12.55, 13.75, 106.55, 123.95, 139.55, 155.55, 167.95],
+            125: [8.55, 12.75, 13.95, 119.25, 138.05, 156.05, 173.95, 187.95],
+            150: [8.65, 12.75, 14.15, 126.55, 146.15, 165.65, 184.65, 199.45],
+            999: [8.75, 12.95, 14.35, 166.15, 192.45, 217.55, 242.55, 261.95],
+        };
+
+        function getColML(preco) {
+            if (preco <= 18.99) return 0;
+            if (preco <= 48.99) return 1;
+            if (preco <= 78.99) return 2;
+            if (preco <= 99.99) return 3;
+            if (preco <= 119.99) return 4;
+            if (preco <= 149.99) return 5;
+            if (preco <= 199.99) return 6;
+            return 7;
+        }
+
+        function faixaMLLabel(preco) {
+            if (preco <= 18.99) return 'R$ 0 a R$ 18,99';
+            if (preco <= 48.99) return 'R$ 19,00 a R$ 48,99';
+            if (preco <= 78.99) return 'R$ 49,00 a R$ 78,99';
+            if (preco <= 99.99) return 'R$ 79,00 a R$ 99,99';
+            if (preco <= 119.99) return 'R$ 100,00 a R$ 119,99';
+            if (preco <= 149.99) return 'R$ 120,00 a R$ 149,99';
+            if (preco <= 199.99) return 'R$ 150,00 a R$ 199,99';
+            return 'acima de R$ 200,00';
+        }
+
+        function getShopeeComissao(preco) {
+            if (preco <= 79.99) return { comis: 20, taxa: 4 };
+            if (preco <= 99.99) return { comis: 14, taxa: 16 };
+            if (preco <= 199.99) return { comis: 14, taxa: 20 };
+            if (preco <= 499.99) return { comis: 14, taxa: 26 };
+            return { comis: 14, taxa: 26 };
+        }
+
+        function faixaShopeeLabel(preco) {
+            if (preco <= 79.99) return 'Faixa Shopee: 20% + R$ 4,00 (até R$ 79,99)';
+            if (preco <= 99.99) return 'Faixa Shopee: 14% + R$ 16,00 (R$ 80 – R$ 99,99)';
+            if (preco <= 199.99) return 'Faixa Shopee: 14% + R$ 20,00 (R$ 100 – R$ 199,99)';
+            if (preco <= 499.99) return 'Faixa Shopee: 14% + R$ 26,00 (R$ 200 – R$ 499,99)';
+            return 'Faixa Shopee: 14% + R$ 26,00 (acima de R$ 500)';
+        }
+
+        function resolverPreco(prodLiq, frete, taxaFixaFn, impos, marg, mkd, isSh) {
+            let pv = prodLiq + frete + 10;
+            for (let i = 0; i < 80; i++) {
+                const pa = mkd < 100 ? pv / (1 - mkd / 100) : pv;
+                let comis, taxa;
+                if (isSh) {
+                    const sh = getShopeeComissao(pa);
+                    comis = sh.comis; taxa = sh.taxa;
+                } else {
+                    comis = parseFloat(document.getElementById('comissao').value) || 0;
+                    taxa = taxaFixaFn(pa);
+                }
+                const divisor = 1 - (comis + impos + marg) / 100;
+                if (divisor <= 0) break;
+                const novo = (prodLiq + frete + taxa) / divisor;
+                if (Math.abs(novo - pv) < 0.001) { pv = novo; break; }
+                pv = novo;
+            }
+            return pv;
+        }
+
+        let plat = 'ml';
+
+        function setPlat(p) {
+            plat = p;
+            document.getElementById('btn-ml').className = 'tab-btn' + (p === 'ml' ? ' active-ml' : '');
+            document.getElementById('btn-sh').className = 'tab-btn' + (p === 'sh' ? ' active-sh' : '');
+            document.getElementById('badge-plat').textContent = p === 'ml' ? 'MERCADO LIVRE' : 'SHOPEE';
+            document.getElementById('badge-plat').className = p === 'ml' ? 'badge-ml' : 'badge-sh';
+
+            const isMl = p === 'ml';
+            const isSh = p === 'sh';
+
+            document.getElementById('wrap-peso').style.display = isMl ? '' : 'none';
+            document.getElementById('lbl-comissao').textContent = isSh ? 'Comissão (Automática Shopee)' : 'Comissão (%)';
+            document.getElementById('wrap-comissao').classList.toggle('readonly', isSh);
+            document.getElementById('comissao').readOnly = isSh;
+            document.getElementById('lbl-taxa').textContent = isSh ? 'Custo Fixo (Automático Shopee)' : 'Custo Envio ML (Automático)';
+            document.getElementById('wrap-taxa').classList.toggle('readonly', true);
+            document.getElementById('taxa_fixa').readOnly = true;
+            document.getElementById('lbl-d-taxa').textContent = isSh ? 'Custo Fixo Shopee:' : 'Custo Envio ML:';
+            document.getElementById('wrap-ml-faixa').style.display = isMl ? '' : 'none';
+            document.getElementById('wrap-shopee-faixa').style.display = isSh ? '' : 'none';
+
+            if (isMl) {
+                document.getElementById('comissao').value = 12;
+            }
+            onInput();
+        }
+
+        function getPesoKey(kg) {
+            if (kg < 0.3) return 0.3;
+            if (kg < 0.5) return 0.5;
+            if (kg < 1) return 1;
+            if (kg < 1.5) return 1.5;
+            if (kg < 2) return 2;
+            if (kg < 3) return 3;
+            if (kg < 4) return 4;
+            if (kg < 5) return 5;
+            if (kg < 6) return 6;
+            if (kg < 7) return 7;
+            if (kg < 8) return 8;
+            if (kg < 9) return 9;
+            if (kg < 11) return 11;
+            if (kg < 13) return 13;
+            if (kg < 15) return 15;
+            if (kg < 17) return 17;
+            if (kg < 20) return 20;
+            if (kg < 25) return 25;
+            if (kg < 30) return 30;
+            if (kg < 40) return 40;
+            if (kg < 50) return 50;
+            if (kg < 60) return 60;
+            if (kg < 70) return 70;
+            if (kg < 80) return 80;
+            if (kg < 90) return 90;
+            if (kg < 100) return 100;
+            if (kg < 125) return 125;
+            if (kg < 150) return 150;
+            return 999;
+        }
+
+        function getCustoML(kg, precoAnuncio) {
+            const key = getPesoKey(kg);
+            const row = ML_CUSTOS[key];
+            if (!row) return 0;
+            return row[getColML(precoAnuncio)] || 0;
+        }
+
+        function br(v) {
+            return 'R$ ' + v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+        function neg(v) {
+            return '- R$ ' + v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function onInput() {
+            const fornecedor = parseFloat(document.getElementById('preco_fornecedor').value) || 0;
+            const descForn = parseFloat(document.getElementById('desc_fornecedor').value) || 0;
+            const prodLiq = fornecedor * (1 - descForn / 100);
+            const frete = parseFloat(document.getElementById('custo_frete').value) || 0;
+            const impos = parseFloat(document.getElementById('impostos').value) || 0;
+            const marg = parseFloat(document.getElementById('margem').value) || 0;
+            const mkd = parseFloat(document.getElementById('desconto_mkt').value) || 0;
+
+            let comis, taxa, precoVenda;
+
+            if (plat === 'ml') {
+                const pesoKg = parseFloat(document.getElementById('peso_produto').value) || 0.5;
+                comis = parseFloat(document.getElementById('comissao').value) || 0;
+                const divisor = 1 - (comis + impos + marg) / 100;
+                if (divisor <= 0) return;
+
+                let pv = (prodLiq + frete + 10) / divisor;
+                for (let i = 0; i < 80; i++) {
+                    const pa = mkd < 100 ? pv / (1 - mkd / 100) : pv;
+                    const t = getCustoML(pesoKg, pa);
+                    const novo = (prodLiq + frete + t) / divisor;
+                    if (Math.abs(novo - pv) < 0.001) { pv = novo; taxa = t; break; }
+                    pv = novo; taxa = t;
+                }
+                precoVenda = pv;
+                taxa = taxa ?? 0;
+                document.getElementById('taxa_fixa').value = taxa.toFixed(2).replace('.', ',');
+                const paML = mkd < 100 ? precoVenda / (1 - mkd / 100) : precoVenda;
+                const pesoKey = getPesoKey(pesoKg);
+                const pesoLabel = pesoKey < 1 ? (pesoKey * 1000).toFixed(0) + ' g' : pesoKey + ' kg';
+                document.getElementById('ml-faixa-txt').textContent =
+                    'Faixa de Pre\u00e7o: ' + faixaMLLabel(paML) +
+                    ' \u2502 Peso (tabela): at\u00e9 ' + pesoLabel +
+                    ' \u2502 Custo Envio: R$ ' + taxa.toFixed(2).replace('.', ',');
+
+            } else {
+                precoVenda = resolverPreco(prodLiq, frete, null, impos, marg, mkd, true);
+                const pa = mkd < 100 ? precoVenda / (1 - mkd / 100) : precoVenda;
+                const sh = getShopeeComissao(pa);
+                comis = sh.comis;
+                taxa = sh.taxa;
+                document.getElementById('comissao').value = comis;
+                document.getElementById('taxa_fixa').value = taxa.toFixed(2).replace('.', ',');
+                document.getElementById('shopee-faixa-txt').textContent = faixaShopeeLabel(pa);
+            }
+
+            if (prodLiq === 0 && frete === 0) {
+                document.getElementById('block-anuncio').style.display = 'none';
+                document.getElementById('divider-prices').style.display = 'none';
+                document.getElementById('lbl-preco-venda').textContent = 'Preço do Anúncio / Venda';
+                document.getElementById('preco-original').textContent = 'R$ 0,00';
+                document.getElementById('preco-final').textContent = 'R$ 0,00';
+                document.getElementById('preco-off').textContent = mkd.toFixed(0) + '% OFF';
+                ['d-produto', 'd-frete', 'd-comissao', 'd-taxa', 'd-impostos'].forEach(id => {
+                    document.getElementById(id).textContent = 'R$ 0,00';
+                });
+                document.getElementById('d-lucro').textContent = 'R$ 0,00';
+                return;
+            }
+
+            const precoAnuncio = mkd < 100 ? precoVenda / (1 - mkd / 100) : precoVenda;
+            const valorComis = precoVenda * comis / 100;
+            const valorImpos = precoVenda * impos / 100;
+            const lucro = precoVenda - prodLiq - frete - taxa - valorComis - valorImpos;
+
+            document.getElementById('block-anuncio').style.display = mkd > 0 ? '' : 'none';
+            document.getElementById('divider-prices').style.display = mkd > 0 ? '' : 'none';
+            document.getElementById('lbl-preco-venda').textContent = mkd > 0 ? 'Preço de Venda' : 'Preço do Anúncio / Venda';
+            document.getElementById('preco-original').textContent = br(precoAnuncio);
+            document.getElementById('preco-final').textContent = br(precoVenda);
+            document.getElementById('preco-off').textContent = mkd.toFixed(0) + '% OFF';
+            document.getElementById('d-produto').textContent = br(prodLiq);
+            document.getElementById('d-frete').textContent = br(frete);
+            document.getElementById('d-comissao').textContent = neg(valorComis);
+            document.getElementById('d-taxa').textContent = neg(taxa);
+            document.getElementById('d-impostos').textContent = neg(valorImpos);
+            document.getElementById('d-lucro').textContent = br(lucro);
+
+            const lucroEl = document.getElementById('d-lucro');
+            lucroEl.style.color = lucro < 0 ? '#c0392b' : '#6ee89b';
+            document.querySelector('.detail-row.lucro').style.background = lucro < 0 ? 'rgba(192,57,43,.2)' : 'rgba(26,138,70,.2)';
+        }
+
+        function copiarPreco(idElemento, idBotao) {
+            const texto = document.getElementById(idElemento).textContent.replace('R$ ', '').replace(',', '.');
+            navigator.clipboard.writeText(texto).then(() => {
+                const btn = document.getElementById(idBotao);
+                btn.textContent = '✓ Copiado';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+            });
+        }
+
+        // Inicializa
+        setPlat('ml');
+    </script>
+</body>
+
+</html>
